@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
+	<link rel="icon" href="imgs/icon.png" type="image/x-icon"/>
+	<title> Ataque Epiléptico</title> 
+	
+</head>
+<body>
+	<script type="text/javascript">
+		window.addEventListener('DOMContentLoaded', init);
+
+		function init(){
+			criarDiv(100, document.getElementById("saida"));
+
+			rca.play();
+			rca.loop = true;
+			rca.playbackRate = 3.0;
+			tempo=Math.floor((Math.random() * 40) + 5);
+
+			RandomColor = setInterval(trocaCor, tempo); 
+		}
+
+		function trocaCor(){
+			let div1 = document.getElementsByTagName("div");
+			for(i=0;i<div1.length;i++){                        
+				div1[i].style.height = Math.floor((Math.random() * 20) + 10)+"px";
+				div1[i].style.width = Math.floor((Math.random() * 800) + 460)+"px";
+				let cor = Math.floor((Math.random() * 16777215) + 0);
+				cor = decimalToHex(cor);                    
+				div1[i].style.backgroundColor = "#"+cor;                        
+
+				document.body.style.backgroundColor = "#"+cor;
+			}
+
+
+			clearInterval(RandomColor);
+			RandomColor = setInterval(trocaCor, Math.floor((Math.random() * 40) + 5));
+
+		}
+
+		function decimalToHex(d) {
+			let hex = Number(d).toString(16);
+			hex = "000000".substr(0, 6 - hex.length) + hex; 
+			return hex;
+		}
+
+		function criarDiv(nDiv, saida){				
+			for (let i = 0; i < nDiv; i++) {
+				let div = document.createElement("div");
+				div.setAttribute("class", "container");
+				div.style.cssFloat = "left";
+				saida.appendChild(div);
+			}
+		}
+		
+	</script>
+
+	<div id="saida"></div>
+
+	<audio id="rca"> <source src="rca.mp3" type="audio/mpeg"/> </audio>	
+</body>
+</html>
